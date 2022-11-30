@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "126152671266",
+    "project_id": "cajangfinance",
+    "storage_bucket": "cajangfinance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126152671266:android:7dbee85c4c319323a48a7b",
+        "android_client_info": {
+          "package_name": "com.amal.cajang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126152671266-47l60eogi0ai4lu66bbkuegsni8q5llv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPDOraaszRQSHo23s-bX58RRYxUCEfLFY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126152671266-47l60eogi0ai4lu66bbkuegsni8q5llv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
