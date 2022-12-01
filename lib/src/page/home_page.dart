@@ -17,8 +17,8 @@ class _HomePageState extends State<HomePage> {
             height: 300,
             padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
               image: DecorationImage(
+                fit: BoxFit.fill,
                 image: AssetImage("assets/images/image1.jpg")
               )
             ),
