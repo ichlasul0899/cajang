@@ -1,3 +1,7 @@
+import 'package:cajang/src/page/add_data.dart';
+import 'package:cajang/src/widgets/SemuaTransaksiContainer.dart';
+import 'package:cajang/src/widgets/pengeluaran_transaksi_container.dart';
+import 'package:cajang/src/widgets/transaksi_container.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,105 +14,53 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            height: 300,
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: AssetImage("assets/images/image1.jpg")
-              )
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Text("MY FINANCE", style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 36,
-                    ),)
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text("+", style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 36,
-                    ),)
-                  ],
-                )
+    return DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text("Cajang Finance"),
+            bottom: const TabBar(
+              tabs: [
+                Tab(text: "Pemasukan",),
+                Tab(text: "Pengeluaran",),
+                Tab(text: "Semua",),
               ],
             ),
           ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            color: Colors.red,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("1/12/2022"),
-                Text("Beli Makan"),
-                Text("Rp. 20.000")
-              ],
-            ),
+          body: const TabBarView(
+            children: [
+              TransaksiContainer(title: "Pemasukan"),
+              PengeluaranTransaksiContainer(),
+              SemuaTransaksiContainer(),
+            ],
           ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            color: Colors.green,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("1/12/2022"),
-                Text("Gaji"),
-                Text("Rp. 20.000.000")
-              ],
-            ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: (){
+              Navigator.pushNamed(context, AddData.routeName);
+            },
+            tooltip: 'Create',
+            child: Icon(Icons.add),
           ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            color: Colors.red,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("1/12/2022"),
-                Text("Beli Makan"),
-                Text("Rp. 20.000")
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            color: Colors.green,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("1/12/2022"),
-                Text("Gaji"),
-                Text("Rp. 20.000.000")
-              ],
+          floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+          bottomNavigationBar: BottomAppBar(
+
+            color: Colors.blue,
+            shape: const CircularNotchedRectangle(),
+            child: IconTheme(
+              data: IconThemeData(color: Colors.blue),
+              child: Row(
+                children: <Widget>[
+                  IconButton(
+                    tooltip: 'Open navigation menu',
+                    icon: const Icon(Icons.menu),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
             ),
           ),
 
-        ],
-      ),
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        child: Container(height: 50.0),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => setState(() {
-          Navigator.pushNamed(context, "/add");
-        }),
-        tooltip: 'Increment Counter',
-        child: const Icon(Icons.add),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
+        )
     );
   }
 }

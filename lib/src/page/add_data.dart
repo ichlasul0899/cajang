@@ -1,16 +1,21 @@
+import 'package:cajang/src/model/transaksi_harian_model.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 
 class AddData extends StatefulWidget {
   const AddData({Key? key}) : super(key: key);
+
+  static String routeName = "/add";
+
 
   @override
   State<AddData> createState() => _AddDataState();
 }
 
 class _AddDataState extends State<AddData> {
-
 
   TextEditingController controller = TextEditingController();
   TextEditingController controllerJumlah = TextEditingController();
@@ -26,12 +31,15 @@ class _AddDataState extends State<AddData> {
   ];
 
   String dropdownValue = "Makanan";
+  String day = "";
 
 
 
 
   @override
   Widget build(BuildContext context) {
+    // var box = Hive.box('myBox');
+
 
     return Scaffold(
       appBar: AppBar(
@@ -79,9 +87,14 @@ class _AddDataState extends State<AddData> {
                         lastDate: DateTime(2101));
 
                     if(pickedDate!=null){
-                      String formattedDate = DateFormat("dd-mm-yyyy").format(pickedDate);
+                      print(pickedDate);
+                      String formattedDate = DateFormat("dd-MM-yyyy").format(pickedDate);
+                      print(formattedDate);
+
+
                       setState(() {
                         controller.text = formattedDate.toString();
+                        day = DateFormat('EEEE').format(pickedDate);
                       });
                     } else {
                       print("no date");
@@ -181,15 +194,61 @@ class _AddDataState extends State<AddData> {
               ],
             ),
           ),
+          Gap(20),
           Center(
             child: ElevatedButton(
-                onPressed: (){
-                  print("add data to db ${controller}");
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all<EdgeInsets>(
+                    EdgeInsets.symmetric(horizontal: 20, vertical: 15)),
+              ),
+                onPressed: () async {
+
+                  var transaksi = await Hive.openBox('transaksi');
+
+                  var new_transaksi = TransaksiHarian(day: day, date: controller.text, category: dropdownValue, description: controllerKeterangan.text, harga: controllerJumlah.text, tipe: "uang masuk");
+                  transaksi.add(new_transaksi);
+
+
+
+
+
+
+
+
+                  // print("add data to db" + transaksi.);
+                  // var box = Hive.box('myBox');
+
+                  // box.put('name', 'Paul');
+                  // String name = box.get('name');
+                  // print(name);
+
+
+                  // print("Day : ${day}");
+                  // print("Date : ${controller.text}");
+                  // print("Category : ${dropdownValue}");
+                  // print("Price : ${controllerJumlah.text}");
+                  // print("Description : ${controllerKeterangan.text}");
+
+                  // box.put(controller.text, {
+                  //   "category": dropdownValue,
+                  //   "price": controllerJumlah.text,
+                  //   "description": controllerKeterangan.text
+                  // });
+                  //
+                  // print(box.get(controller.text));
+
+
+                  // Bersihkan Form
                   // Navigator.pop(context);
                 },
                 child: Text("Simpan")
             ),
+
           ),
+
+
+
+
         ],
       ),
     );
